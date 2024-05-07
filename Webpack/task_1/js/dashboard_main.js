@@ -1,5 +1,5 @@
 import $ from 'jquery';
-import lodash from 'lodash';
+import _ from 'lodash';
 
 $(document).ready(function() {
     // DOM manipulation
@@ -20,7 +20,7 @@ $(document).ready(function() {
     }
 
     // Debounced function to update the counter with a 500ms delay
-    const debouncedUpdateCounter = lodash.debounce(updateCounter, 500);
+    const debouncedUpdateCounter = _.debounce(updateCounter, 500);
 
     // Event handling for the button with debounce
     $('#startButton').click(function() {

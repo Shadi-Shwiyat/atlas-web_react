@@ -1,4 +1,4 @@
-# 0. Webpack
+# Webpack
 The goal of this project is to understand the fundementals of Webpack
 ## Learning Objectives
 - How to setup Webpack for a basic project

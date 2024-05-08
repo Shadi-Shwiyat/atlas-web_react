@@ -1,4 +1,4 @@
-import { getFullYear, getFooterCopy, getLatestNotification } from './utils';
+import { getFullYear, getFooterCopy, getLatestNotification } from './utils.js';
 
 describe('getFullYear', () => {
   test('returns the correct year', () => {

@@ -1,6 +1,6 @@
 import React from 'react';
 import { render } from '@testing-library/react';
-import Notifications from './Notifications';
+import Notifications from './Notifications.js';
 
 test('renders Notifications without crashing', () => {
   render(<Notifications />);

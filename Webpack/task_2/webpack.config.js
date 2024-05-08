@@ -19,15 +19,16 @@ module.exports = {
       {
         test: /\.(png|jpg|jpeg|gif|svg)$/, // Rule for image files
         use: [
-          {
-            loader: 'file-loader',
-            options: {
-              name: '[name].[ext]',
-            },
-          },
+          // {
+          //   loader: 'file-loader',
+          //   options: {
+          //     name: '[name].[ext]',
+          //   },
+          // },
           {
             loader: 'image-webpack-loader',
             options: {
+              name: '[name].[ext]',
               bypassOnDebug: true,
               disable: true,
             },

@@ -1,0 +1,14 @@
+{
+  "files": {
+    "main.css": "/atlas-web_react/static/css/main.77ea4843.css",
+    "main.js": "/atlas-web_react/static/js/main.ccd942bb.js",
+    "static/media/logo.jpg": "/atlas-web_react/static/media/logo.24bab5d633e36ca8d17e.jpg",
+    "index.html": "/atlas-web_react/index.html",
+    "main.77ea4843.css.map": "/atlas-web_react/static/css/main.77ea4843.css.map",
+    "main.ccd942bb.js.map": "/atlas-web_react/static/js/main.ccd942bb.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.77ea4843.css",
+    "static/js/main.ccd942bb.js"
+  ]
+}

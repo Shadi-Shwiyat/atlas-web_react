@@ -1,0 +1,25 @@
+/* FOOTER */
+.App-footer {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%; 
+  padding: 0px 0;
+  text-align: center;
+}
+
+.App-footer::before {
+  content: '';
+  position: fixed;
+  left: calc(10px);
+  width: calc(100% - 20px);
+  height: 3.5px;
+  background-color: #E0354B;
+}
+
+.App-footer p {
+  font: 1em arial;
+  font-size: 19px;
+  font-style: italic;
+}
+/* END FOOTER */

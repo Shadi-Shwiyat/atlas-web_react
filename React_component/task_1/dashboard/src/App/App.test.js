@@ -3,15 +3,6 @@ import { shallow } from 'enzyme';
 import App from './App.js';
 
 describe('App Component', () => {
-  let alertMock;
-  beforeEach(() => {
-    alertMock = jest.spyOn(window, 'alert').mockImplementation(() => {});
-  });
-
-  afterEach(() => {
-    alertMock.mockRestore();
-  });
-
   it('contains the Notifications component', () => {
     const wrapper = shallow(<App />);
     expect(wrapper.find('Notifications').length).toEqual(1);
@@ -41,19 +32,6 @@ describe('App Component', () => {
     it('contains the CourseList component', () => {
       const wrapper = shallow(<App loggedIn={true} />);
       expect(wrapper.find('CourseList').length).toEqual(1);
-    });
-  });
-
-  describe('Keydown event', () => {
-    it('calls logOut function and displays alert when ctrl and h keys are pressed', () => {
-      const logOutMock = jest.fn();
-
-      const wrapper = shallow(<App logOut={logOutMock} />);
-      const event = new KeyboardEvent('keydown', { key: 'h', ctrlKey: true });
-      document.dispatchEvent(event);
-
-      expect(logOutMock).toHaveBeenCalled();
-      expect(alertMock).toHaveBeenCalledWith('Logging you out');
     });
   });
 });

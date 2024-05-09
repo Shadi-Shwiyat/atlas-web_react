@@ -1,10 +1,17 @@
+.menuItem {
+  position: fixed;
+  top: 0;
+  right: 0;
+  margin-top: 10px;
+  margin-right: 20px;
+}
+
 .Notifications {
-  position: relative;
+  position: fixed;
   border: 1px dashed #E0354B;
   padding: 10px;
-  margin-left: 10px;
-  margin-right: 10px;
-  margin-top: 13px;
+  top: 60px;
+  right: 20px;
 }
 
 .Notifications li[data-priority="default"] {

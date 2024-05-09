@@ -4,7 +4,7 @@ import NotificationItem from './NotificationItem';
 
 describe('NotificationItem Component', () => {
   it('renders without crashing', () => {
-    shallow(<NotificationItem />);
+    shallow(<NotificationItem type='default'/>);
   });
 
   it('renders the correct html with type and value props', () => {
@@ -16,9 +16,9 @@ describe('NotificationItem Component', () => {
 
   it('renders the correct html with html prop', () => {
     const html = { __html: '<u>test</u>' };
-    const wrapper = shallow(<NotificationItem html={html} />);
+    const wrapper = shallow(<NotificationItem type='default' html={html} />);
     // Get the inner HTML of the <li> element as a string
     const renderedHtml = wrapper.find('li');
-    expect(renderedHtml.prop('dangerouslySetInnerHTML').__html).toBe(html);
+    expect(renderedHtml.prop('dangerouslySetInnerHTML').__html).toBe(html.__html); // Compare the __html property
   });
 });

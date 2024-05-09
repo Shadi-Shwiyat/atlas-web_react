@@ -11,7 +11,7 @@ function Login() {
 
   return (
     <>
-      <p>Login to access the full dashboard</p>
+      {/* <p>Login to access the full dashboard</p> */}
       <div className='sign-in'>
         <label htmlFor="email" onClick={() => handleLabelClick("email")}>Email:</label>
         <input type="email" id="email" name="email" />

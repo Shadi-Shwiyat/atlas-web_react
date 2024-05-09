@@ -89,3 +89,35 @@ test('calls console.log when markAsRead is called', () => {
   
   spy.mockRestore();
 });
+
+describe('Notifications Component', () => {
+  it('does not rerender with the same list', () => {
+    const listNotifications = [
+      { id: 1, type: "default", value: "New course available" },
+      { id: 2, type: "urgent", value: "New resume available" },
+      { id: 3, type: "urgent", html: { __html: "Notification content" } }
+    ];
+    const wrapper = shallow(<Notifications displayDrawer={true} listNotifications={listNotifications} />);
+
+    const shouldUpdate = wrapper.instance().shouldComponentUpdate({ listNotifications });
+    expect(shouldUpdate).toBe(false);
+  });
+
+  it('rerenders with a longer list', () => {
+    const initialList = [
+      { id: 1, type: "default", value: "New course available" },
+      { id: 2, type: "urgent", value: "New resume available" },
+      { id: 3, type: "urgent", html: { __html: "Notification content" } }
+    ];
+    const updatedList = [
+      { id: 1, type: "default", value: "New course available" },
+      { id: 2, type: "urgent", value: "New resume available" },
+      { id: 3, type: "urgent", html: { __html: "Notification content" } },
+      { id: 4, type: "default", value: "Another notification" }
+    ];
+    const wrapper = shallow(<Notifications displayDrawer={true} listNotifications={initialList} />);
+
+    const shouldUpdate = wrapper.instance().shouldComponentUpdate({ listNotifications: updatedList });
+    expect(shouldUpdate).toBe(true);
+  });
+});

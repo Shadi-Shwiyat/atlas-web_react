@@ -1,0 +1,18 @@
+body {
+  margin: 0;
+}
+
+.App {
+  margin: 10px;
+}
+
+/* BODY */
+.App-body {
+  margin: 60px;
+}
+
+.App-body p {
+  font: 1em arial;
+  font-size: 19px;
+}
+/* END BODY */

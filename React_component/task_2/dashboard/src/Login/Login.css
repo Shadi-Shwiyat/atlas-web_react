@@ -1,0 +1,21 @@
+.sign-in {
+  display: flex;
+}
+
+label {
+  font: 1em arial;
+  font-size: 19px;
+}
+
+.sign-in label:last-of-type {
+  margin-left: 10px;
+}
+
+.sign-in input {
+  margin-left: 10px;
+}
+
+.sign-in button {
+  margin-left: 10px;
+  border-radius: 6px;
+}

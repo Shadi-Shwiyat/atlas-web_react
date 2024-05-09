@@ -1,0 +1,31 @@
+/* HEADER */
+.App-header {
+  display: flex;
+  align-items: center;
+  position: relative;
+  margin: 0;
+}
+
+.App-header::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 3px;
+  background-color: #E0354B;
+}
+
+h1 {
+  font: 1em arial;
+  font-weight: bolder;
+  font-size: 36px;
+  color: #E0354B;
+  margin-left: 30px;
+}
+
+.logo {
+  width: 230px;
+  height: 230px;
+}
+/* END HEADER */

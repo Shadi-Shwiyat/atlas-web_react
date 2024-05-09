@@ -6,7 +6,7 @@ import './styles/styles.css'
 ReactDOM.render(
   <React.StrictMode>
     <div className='app'>
-      <App loggedIn={true} />
+      <App loggedIn={false} />
     </div>
   </React.StrictMode>,
   document.getElementById('root')

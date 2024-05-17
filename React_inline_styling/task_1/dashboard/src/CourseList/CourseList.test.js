@@ -1,6 +1,7 @@
 import React from 'react';
 import { render } from '@testing-library/react';
 import CourseList from './CourseList';
+import { StyleSheetTestUtils } from 'aphrodite';
 
 beforeAll(() => {
   StyleSheetTestUtils.suppressStyleInjection();

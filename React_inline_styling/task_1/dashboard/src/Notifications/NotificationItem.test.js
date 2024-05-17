@@ -1,12 +1,13 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 import NotificationItem from './NotificationItem';
+import { StyleSheetTestUtils } from 'aphrodite';
 
 describe('NotificationItem Component', () => {
   beforeAll(() => {
     StyleSheetTestUtils.suppressStyleInjection();
   });
-  
+
   it('renders without crashing', () => {
     shallow(<NotificationItem type='default'/>);
   });

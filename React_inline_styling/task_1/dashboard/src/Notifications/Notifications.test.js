@@ -4,6 +4,7 @@ import { render } from '@testing-library/react';
 import Notifications from './Notifications.js';
 import NotificationItem from './NotificationItem';
 import { getLatestNotification } from '../utils/utils.js';
+import { StyleSheetTestUtils } from 'aphrodite';
 
 beforeAll(() => {
   StyleSheetTestUtils.suppressStyleInjection();

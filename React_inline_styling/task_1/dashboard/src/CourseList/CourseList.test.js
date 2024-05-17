@@ -2,6 +2,10 @@ import React from 'react';
 import { render } from '@testing-library/react';
 import CourseList from './CourseList';
 
+beforeAll(() => {
+  StyleSheetTestUtils.suppressStyleInjection();
+});
+
 test('renders CourseList component without crashing', () => {
   render(<CourseList />);
 });

@@ -3,6 +3,9 @@ import logo from '../assets/logo.jpg';
 import {StyleSheet, css} from 'aphrodite';
 
 const styles = StyleSheet.create({
+  header: {
+    margin: 0,
+  },
   appHeader: {
     display: 'flex',
     alignItems: 'center',

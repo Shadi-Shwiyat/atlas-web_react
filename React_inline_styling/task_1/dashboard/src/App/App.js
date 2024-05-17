@@ -11,6 +11,9 @@ import BodySectionWithMarginBottom from '../BodySection/BodySectionWithMarginBot
 import BodySection from '../BodySection/BodySection';
 
 const styles = StyleSheet.create({
+  body: {
+    margin: 0,
+  },
   app: {
     margin: '10px',
   },
@@ -20,6 +23,9 @@ const styles = StyleSheet.create({
   appBodyP: {
     fontFamily: 'arial',
     fontSize: '19px',
+  },
+  footer: {
+    margin: 0,
   }
 });
 

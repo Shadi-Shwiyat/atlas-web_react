@@ -1,9 +1,20 @@
 import React from 'react';
 import { shallow } from 'enzyme';
+import { StyleSheetTestUtils } from 'aphrodite';
 import BodySectionWithMarginBottom from './BodySectionWithMarginBottom';
 import BodySection from './BodySection';
 
 describe('BodySectionWithMarginBottom Component', () => {
+  // Disable style injection before running the tests
+  beforeAll(() => {
+    StyleSheetTestUtils.suppressStyleInjection();
+  });
+
+  // Re-enable style injection after the tests have run
+  afterAll(() => {
+    StyleSheetTestUtils.clearBufferAndResumeStyleInjection();
+  });
+
   it('renders BodySection with correct props and CSS applied', () => {
     const title = 'test title';
     const children = <p>test children node</p>;

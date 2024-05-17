@@ -5,6 +5,10 @@ import Notifications from './Notifications.js';
 import NotificationItem from './NotificationItem';
 import { getLatestNotification } from '../utils/utils.js';
 
+beforeAll(() => {
+  StyleSheetTestUtils.suppressStyleInjection();
+});
+
 test('renders Notifications without crashing', () => {
   render(<Notifications displayDrawer={true} listNotifications={[]} />);
 });

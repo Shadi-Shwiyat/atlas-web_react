@@ -3,6 +3,10 @@ import { shallow } from 'enzyme';
 import Login from '../Login/Login';
 
 describe('Login Component', () => {
+  beforeAll(() => {
+    StyleSheetTestUtils.suppressStyleInjection();
+  });
+  
   it('renders without crashing', () => {
     shallow(<Login />);
   });

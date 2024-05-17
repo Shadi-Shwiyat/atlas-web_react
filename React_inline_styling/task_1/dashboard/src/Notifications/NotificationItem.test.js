@@ -3,6 +3,10 @@ import { shallow } from 'enzyme';
 import NotificationItem from './NotificationItem';
 
 describe('NotificationItem Component', () => {
+  beforeAll(() => {
+    StyleSheetTestUtils.suppressStyleInjection();
+  });
+  
   it('renders without crashing', () => {
     shallow(<NotificationItem type='default'/>);
   });

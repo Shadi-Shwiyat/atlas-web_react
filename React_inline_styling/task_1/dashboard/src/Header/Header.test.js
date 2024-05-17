@@ -3,6 +3,10 @@ import { shallow } from 'enzyme';
 import Header from '../Header/Header';
 
 describe('Header Component', () => {
+  beforeAll(() => {
+    StyleSheetTestUtils.suppressStyleInjection();
+  });
+
   it('renders without crashing', () => {
     shallow(<Header />);
   });

@@ -46,11 +46,11 @@ class Notifications extends Component {
 
     return (
       <>
-        <div className={css(styles.menuItem)}>
+        <div className={css(styles.menuItem)} id='menuItem'>
           <p>Your notifications</p>
         </div>
         {displayDrawer && (
-          <div className={css(styles.notifications)}>
+          <div className={css(styles.notifications)} id='notifications'>
             <button
               style={{
                 position: 'absolute',

@@ -22,7 +22,7 @@ class NotificationItem extends PureComponent {
 }
 
 NotificationItem.propTypes = {
-  id: PropTypes.number.isRequired,
+  id: PropTypes.number,
   type: PropTypes.string,
   html: PropTypes.shape({
     __html: PropTypes.string

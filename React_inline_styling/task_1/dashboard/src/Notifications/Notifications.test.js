@@ -41,7 +41,7 @@ test('renders the correct html for the first NotificationItem', () => {
 
 test('displays menu item when displayDrawer is false', () => {
   const wrapper = shallow(<Notifications displayDrawer={false} listNotifications={[]} />);
-  const menuItem = wrapper.find('.menuItem');
+  const menuItem = wrapper.find('#menuItem');
   expect(menuItem.exists()).toBe(true);
 });
 
@@ -53,13 +53,13 @@ test('does not display Notifications when displayDrawer is false', () => {
 
 test('displays menu item when displayDrawer is true', () => {
   const wrapper = shallow(<Notifications displayDrawer={true} listNotifications={[]} />);
-  const menuItem = wrapper.find('.menuItem');
+  const menuItem = wrapper.find('#menuItem');
   expect(menuItem.exists()).toBe(true);
 });
 
 test('displays Notifications when displayDrawer is true', () => {
   const wrapper = shallow(<Notifications displayDrawer={true} listNotifications={[]} />);
-  const notifications = wrapper.find('.Notifications');
+  const notifications = wrapper.find('#notifications');
   expect(notifications.exists()).toBe(true);
 });
 

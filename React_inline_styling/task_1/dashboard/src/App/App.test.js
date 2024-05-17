@@ -1,8 +1,19 @@
 import React from 'react';
 import { shallow } from 'enzyme';
+import { StyleSheetTestUtils } from 'aphrodite';
 import App from './App.js';
 
 describe('App Component', () => {
+  // Disable style injection before running the tests
+  beforeAll(() => {
+    StyleSheetTestUtils.suppressStyleInjection();
+  });
+
+  // Re-enable style injection after the tests have run
+  afterAll(() => {
+    StyleSheetTestUtils.clearBufferAndResumeStyleInjection();
+  });
+
   it('contains the Notifications component', () => {
     const wrapper = shallow(<App />);
     expect(wrapper.find('Notifications').length).toEqual(1);

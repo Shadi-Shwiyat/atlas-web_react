@@ -11,7 +11,7 @@ const styles = StyleSheet.create({
 
 const BodySectionWithMarginBottom = ({ title, children }) => {
   return (
-    <div className={css(styles.bodySectionWithMarginBottom)}>
+    <div className={css(styles.bodySectionWithMarginBottom)} id='bodySectionWithMarginBottom'>
       <BodySection title={title}>{children}</BodySection>
     </div>
   );

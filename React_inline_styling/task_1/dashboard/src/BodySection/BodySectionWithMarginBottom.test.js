@@ -14,6 +14,6 @@ describe('BodySectionWithMarginBottom Component', () => {
     expect(bodySection.prop('title')).toBe(title);
     expect(bodySection.prop('children')).toBe(children);
 
-    expect(wrapper.hasClass('bodySectionWithMargin')).toBe(true);
+    expect(wrapper.find('#bodySectionWithMarginBottom').exists()).toBe(true);
   });
 });

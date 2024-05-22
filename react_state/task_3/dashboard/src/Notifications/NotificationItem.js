@@ -25,9 +25,9 @@ class NotificationItem extends PureComponent {
   handleClick = () => {
     const { id, markNotificationAsRead } = this.props;
     if (markNotificationAsRead) {
+      console.log('handleClick called with id:', id);
       markNotificationAsRead(id);
       // console.log("MARK NOTIFICATION AS READ IS CLICKED");
-      console.log('handleClick called with id:', id);
     }
   };
 

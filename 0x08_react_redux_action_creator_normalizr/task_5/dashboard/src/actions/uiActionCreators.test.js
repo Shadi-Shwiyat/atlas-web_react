@@ -1,5 +1,3 @@
-// src/actions/uiActionCreators.test.js
-
 import { login, logout, displayNotificationDrawer, hideNotificationDrawer } from './uiActionCreators';
 import { LOGIN, LOGOUT, DISPLAY_NOTIFICATION_DRAWER, HIDE_NOTIFICATION_DRAWER } from './uiActionTypes';
 

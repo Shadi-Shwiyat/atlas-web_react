@@ -11,6 +11,7 @@ import BodySectionWithMarginBottom from '../BodySection/BodySectionWithMarginBot
 import BodySection from '../BodySection/BodySection';
 import AppContext from './AppContext';
 import { connect } from 'react-redux';
+import { displayNotificationDrawer, hideNotificationDrawer } from '../actions/uiActionCreators';
 
 const styles = StyleSheet.create({
   body: {
@@ -52,7 +53,6 @@ class App extends Component {
         { id: 2, name: 'Webpack', credit: 20 },
         { id: 3, name: 'React', credit: 40 }
       ],
-      displayDrawer: false,
     };
   }
 
@@ -110,7 +110,7 @@ class App extends Component {
 
   render() {
     const { user, listNotifications, listCourses } = this.state;
-    const { isLoggedIn, displayDrawer } = this.props;
+    const { isLoggedIn, displayDrawer, displayNotificationDrawer, hideNotificationDrawer } = this.props;
 
     return (
       <AppContext.Provider value={{ user: user, logOut: this.logOut }}>
@@ -118,8 +118,8 @@ class App extends Component {
           <Notifications 
             displayDrawer={displayDrawer} 
             listNotifications={listNotifications} 
-            handleDisplayDrawer={this.handleDisplayDrawer}
-            handleHideDrawer={this.handleHideDrawer}
+            handleDisplayDrawer={displayNotificationDrawer}
+            handleHideDrawer={hideNotificationDrawer}
             markNotificationAsRead={this.markNotificationAsRead}
           />
           <div className={css(styles.app)}>
@@ -148,8 +148,8 @@ class App extends Component {
 
 App.propTypes = {
   isLoggedIn: PropTypes.bool,
+  logOut: PropTypes.func,
   displayDrawer: PropTypes.bool,
-  logOut: PropTypes.func
 };
 
 App.defaultProps = {
@@ -159,9 +159,13 @@ App.defaultProps = {
 export function mapStateToProps(state) {
   return {
     isLoggedIn: state.get('isUserLoggedIn'),
-    displayDrawer: state.get('isNotificationDrawerVisible')
+    displayDrawer: state.get('isNotificationDrawerVisible'),
   };
 }
 
-export default connect(mapStateToProps)(App);
+const mapDispatchToProps = {
+  displayNotificationDrawer,
+  hideNotificationDrawer,
+};
 
+export default connect(mapStateToProps, mapDispatchToProps)(App);

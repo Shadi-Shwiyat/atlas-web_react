@@ -111,7 +111,7 @@ class App extends Component {
   render() {
     const { user, listNotifications, listCourses } = this.state;
     const { displayDrawer } = this.state;
-    const { loggedIn } = this.props;
+    const { isLoggedIn } = this.props;
 
     return (
       <AppContext.Provider value={{ user: user, logOut: this.logOut }}>
@@ -126,7 +126,7 @@ class App extends Component {
           <div className={css(styles.app)}>
             <Header user={user} />
             <div className={css(styles.appBody)}>
-              {loggedIn ? (
+              {isLoggedIn ? (
                 <BodySectionWithMarginBottom title="Course list">
                   <CourseList listCourses={listCourses} />
                 </BodySectionWithMarginBottom>
@@ -148,7 +148,7 @@ class App extends Component {
 }
 
 App.propTypes = {
-  loggedIn: PropTypes.bool,
+  isLoggedIn: PropTypes.bool,
   logOut: PropTypes.func
 };
 
@@ -156,9 +156,10 @@ App.defaultProps = {
   logOut: () => {}
 };
 
-function mapStateToProps(state) {
+export function mapStateToProps(state) {
   return {
-    isLoggedIn: state.get('isUserLoggedIn')
+    isLoggedIn: state.get('isUserLoggedIn'),
+    displayDrawer: state.get('isNotificationDrawerVisible')
   };
 }
 

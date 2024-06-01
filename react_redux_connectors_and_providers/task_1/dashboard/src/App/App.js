@@ -11,7 +11,7 @@ import BodySectionWithMarginBottom from '../BodySection/BodySectionWithMarginBot
 import BodySection from '../BodySection/BodySection';
 import AppContext from './AppContext';
 import { connect } from 'react-redux';
-import { displayNotificationDrawer, hideNotificationDrawer } from '../actions/uiActionCreators';
+import { displayNotificationDrawer, hideNotificationDrawer } from '../actions/uiActionCreators';  // Import the action creators
 
 const styles = StyleSheet.create({
   body: {
@@ -74,14 +74,6 @@ class App extends Component {
         isLoggedIn: false
       }
     });
-  }
-
-  handleDisplayDrawer = () => {
-    this.setState({ displayDrawer: true });
-  }
-
-  handleHideDrawer = () => {
-    this.setState({ displayDrawer: false });
   }
 
   markNotificationAsRead = (id) => {
@@ -150,10 +142,12 @@ App.propTypes = {
   isLoggedIn: PropTypes.bool,
   logOut: PropTypes.func,
   displayDrawer: PropTypes.bool,
+  displayNotificationDrawer: PropTypes.func,
+  hideNotificationDrawer: PropTypes.func,
 };
 
 App.defaultProps = {
-  logOut: () => {}
+  logOut: () => {},
 };
 
 export function mapStateToProps(state) {

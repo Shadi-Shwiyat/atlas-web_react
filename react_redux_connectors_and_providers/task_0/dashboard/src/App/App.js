@@ -158,7 +158,7 @@ App.defaultProps = {
 
 function mapStateToProps(state) {
   return {
-    loggedIn: state.ui.isLoggedIn
+    isLoggedIn: state.get('isUserLoggedIn')
   };
 }
 

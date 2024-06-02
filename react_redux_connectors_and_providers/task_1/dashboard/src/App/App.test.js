@@ -6,6 +6,7 @@ import { Provider } from 'react-redux';
 import { StyleSheetTestUtils } from 'aphrodite';
 import App, { mapStateToProps } from './App.js';
 import { Map } from 'immutable';
+import { displayNotificationDrawer, hideNotificationDrawer } from '../actions/uiActionCreators';
 
 // Create a mock store
 const mockStore = configureStore([]);
@@ -67,6 +68,7 @@ describe('App Component', () => {
     it('does not contain the Login component when user is logged in', () => {
       const loggedInState = fromJS({
         isUserLoggedIn: true,
+        isNotificationDrawerVisible: false,
       });
       const loggedInStore = mockStore(loggedInState);
       const wrapper = mount(
@@ -80,6 +82,7 @@ describe('App Component', () => {
     it('contains the CourseList component', () => {
       const loggedInState = fromJS({
         isUserLoggedIn: true,
+        isNotificationDrawerVisible: false,
       });
       const loggedInStore = mockStore(loggedInState);
       const wrapper = mount(
@@ -91,40 +94,49 @@ describe('App Component', () => {
     });
   });
 
-  // New tests for displayDrawer state
+  // Test for displayDrawer state
   it('has default displayDrawer state as false', () => {
     const wrapper = mount(
       <Provider store={store}>
         <App />
       </Provider>
     );
-    const appInstance = wrapper.find('App').instance();
-    expect(appInstance.state.displayDrawer).toBe(false);
+    expect(wrapper.find('Notifications').prop('displayDrawer')).toBe(false);
   });
 
-  it('sets displayDrawer to true when handleDisplayDrawer is called', () => {
+  it('sets displayDrawer to true when the action to display the drawer is dispatched', () => {
+    const updatedState = initialState.set('isNotificationDrawerVisible', true);
+    const updatedStore = mockStore(updatedState);
+    
     const wrapper = mount(
-      <Provider store={store}>
+      <Provider store={updatedStore}>
         <App />
       </Provider>
     );
-    const appInstance = wrapper.find('App').instance();
-    appInstance.handleDisplayDrawer();
-    wrapper.update(); // Force update to reflect state changes
-    expect(appInstance.state.displayDrawer).toBe(true);
+    
+    wrapper.setProps({ store: updatedStore });
+    wrapper.update();
+    
+    expect(wrapper.find('Notifications').prop('displayDrawer')).toBe(true);
   });
 
-  it('sets displayDrawer to false when handleHideDrawer is called', () => {
+  it('sets displayDrawer to false when the action to hide the drawer is dispatched', () => {
+    const visibleState = initialState.set('isNotificationDrawerVisible', true);
+    const visibleStore = mockStore(visibleState);
+
     const wrapper = mount(
-      <Provider store={store}>
+      <Provider store={visibleStore}>
         <App />
       </Provider>
     );
-    const appInstance = wrapper.find('App').instance();
-    appInstance.setState({ displayDrawer: true });
-    appInstance.handleHideDrawer();
-    wrapper.update(); // Force update to reflect state changes
-    expect(appInstance.state.displayDrawer).toBe(false);
+
+    const updatedState = initialState.set('isNotificationDrawerVisible', false);
+    const updatedStore = mockStore(updatedState);
+    
+    wrapper.setProps({ store: updatedStore });
+    wrapper.update();
+    
+    expect(wrapper.find('Notifications').prop('displayDrawer')).toBe(false);
   });
 
   // Test for markNotificationAsRead
@@ -163,10 +175,12 @@ describe('App Component', () => {
 describe('mapStateToProps', () => {
   it('should return the correct state', () => {
     const state = fromJS({
-      isUserLoggedIn: true
+      isUserLoggedIn: true,
+      isNotificationDrawerVisible: false,
     });
     const expectedProps = {
-      isLoggedIn: true
+      isLoggedIn: true,
+      displayDrawer: false,
     };
     expect(mapStateToProps(state)).toEqual(expectedProps);
   });

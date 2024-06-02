@@ -11,6 +11,9 @@ const styles = StyleSheet.create({
       padding: '10px 8px',
       width: '100vw',
       borderBottom: '1px solid black',
+    },
+    ":hover": {
+      cursor: 'pointer',
     }
   },
   default: {

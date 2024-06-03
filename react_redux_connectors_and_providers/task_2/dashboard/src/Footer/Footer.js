@@ -1,11 +1,9 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import { getFullYear, getFooterCopy } from '../utils/utils.js';
 import './Footer.css';
-import AppContext from '../App/AppContext.js';
+import { connect } from 'react-redux';
 
-function Footer() {
-  const { user } = useContext(AppContext);
-
+function Footer({ user }) {
   return (
     <div className='App-footer'>
       <p>Copyright {getFooterCopy(true)} - {getFullYear()}</p>
@@ -18,4 +16,10 @@ function Footer() {
   );
 }
 
-export default Footer;
+export function mapStateToProps(state) {
+  return {
+    user: state.get('user').toJS(),
+  };
+}
+
+export default connect(mapStateToProps)(Footer);

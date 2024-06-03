@@ -4,7 +4,7 @@ import App from './App/App.js';
 import './styles/styles.css';
 import { createStore, applyMiddleware } from 'redux';
 import { Provider } from 'react-redux';
-import thunk from 'redux-thunk';
+import { thunk } from 'redux-thunk';
 import uiReducer from './reducers/uiReducer.js';
 
 // Create a Redux store using the uiReducer and apply redux-thunk middleware

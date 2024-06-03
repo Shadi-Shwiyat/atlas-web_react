@@ -1,7 +1,8 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import logo from '../assets/logo.jpg';
 import {StyleSheet, css} from 'aphrodite';
-import AppContext from '../App/AppContext';
+import { logout } from '../actions/uiActionCreators';
+import { connect } from 'react-redux';
 
 const styles = StyleSheet.create({
   header: {
@@ -47,9 +48,7 @@ const styles = StyleSheet.create({
 });
 
 
-function Header() {
-  const { user, logOut } = useContext(AppContext);
-
+function Header({ user, logOut }) {
   const handleLogout = () => {
     logOut();
   };
@@ -67,4 +66,14 @@ function Header() {
   );
 }
 
-export default Header;
+export function mapStateToProps(state) {
+  return {
+    user: state.get('user').toJS(),
+  };
+}
+
+const mapDispatchToProps = {
+  logout,
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Header);

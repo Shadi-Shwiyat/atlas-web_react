@@ -1,8 +1,9 @@
 import React from 'react';
 import logo from '../assets/logo.jpg';
-import {StyleSheet, css} from 'aphrodite';
+import { StyleSheet, css } from 'aphrodite';
 import { logout } from '../actions/uiActionCreators';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 
 const styles = StyleSheet.create({
   header: {
@@ -47,28 +48,41 @@ const styles = StyleSheet.create({
   },
 });
 
-
-function Header({ user, logOut }) {
+function Header({ user, isUserLoggedIn, logout }) {
   const handleLogout = () => {
-    logOut();
+    logout();
   };
 
   return (
     <div className={css(styles.appHeader)}>
       <img src={logo} alt='logo.jpg' className={css(styles.logo)}></img>
       <h1 className={css(styles.h1)}>School dashboard</h1>
-      {user.isLoggedIn && (
+      {isUserLoggedIn && (
         <div className={css(styles.welcomeMessage)} id="logoutSection">
-          Welcome {user.email} (<span className={css(styles.logoutLink)} onClick={handleLogout} id='logoutLink'>logout</span>)
+          Welcome {user.get('email')} (<span className={css(styles.logoutLink)} onClick={handleLogout} id='logoutLink'>logout</span>)
         </div>
       )}
     </div>
   );
 }
 
+Header.propTypes = {
+  user: PropTypes.object.isRequired,
+  isUserLoggedIn: PropTypes.bool.isRequired,
+  logout: PropTypes.func.isRequired,
+};
+
+Header.defaultProps = {
+  user: {
+    isLoggedIn: false,
+    email: '',
+  },
+};
+
 export function mapStateToProps(state) {
   return {
-    user: state.get('user').toJS(),
+    user: state.get('user'),
+    isUserLoggedIn: state.get('isUserLoggedIn'),
   };
 }
 

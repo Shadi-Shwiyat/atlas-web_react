@@ -38,11 +38,6 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      user: {
-        email: '',
-        password: '',
-        isLoggedIn: false,
-      },
       listNotifications: [
         { id: 1, type: "default", value: "New course available" },
         { id: 2, type: "urgent", value: "New resume available" },
@@ -81,8 +76,8 @@ class App extends Component {
   }
 
   render() {
-    const { user, listNotifications, listCourses } = this.state;
-    const { isLoggedIn, displayDrawer, displayNotificationDrawer, hideNotificationDrawer, loginRequest, logout } = this.props;
+    const { listNotifications, listCourses } = this.state;
+    const { isLoggedIn, displayDrawer, displayNotificationDrawer, hideNotificationDrawer, loginRequest, logout, user } = this.props;
 
     return (
       <AppContext.Provider value={{ user: user, logOut: logout }}>
@@ -125,16 +120,19 @@ App.propTypes = {
   displayNotificationDrawer: PropTypes.func,
   hideNotificationDrawer: PropTypes.func,
   loginRequest: PropTypes.func,
+  user: PropTypes.object,
 };
 
 App.defaultProps = {
   logout: () => {},
+  user: {},
 };
 
 export function mapStateToProps(state) {
   return {
     isLoggedIn: state.get('isUserLoggedIn'),
     displayDrawer: state.get('isNotificationDrawerVisible'),
+    user: state.get('user').toJS(),
   };
 }
 

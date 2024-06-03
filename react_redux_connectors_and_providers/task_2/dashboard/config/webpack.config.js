@@ -1,5 +1,6 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 const { merge } = require('webpack-merge');
 
 const commonConfig = {
@@ -40,6 +41,11 @@ const commonConfig = {
       template: './dist/index.html',
       filename: 'index.html',
     }),
+    new CopyWebpackPlugin({
+      patterns: [
+        { from: path.resolve(__dirname, '../dist/login-success.json'), to: '' }
+      ],
+    }),
   ],
 };
 
@@ -48,7 +54,7 @@ const devConfig = {
   devtool: 'inline-source-map',
   devServer: {
     static: {
-      directory: path.resolve(__dirname, 'dist'),
+      directory: path.resolve(__dirname, '../dist'),
     },
     hot: true,
     historyApiFallback: true,

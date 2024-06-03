@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import { StyleSheet, css } from 'aphrodite';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 
 const styles = StyleSheet.create({
   signIn: {
@@ -38,7 +40,7 @@ class Login extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      email: props.user.email,
+      email: props.user.email || '',
       password: '',
       enableSubmit: false,
     };
@@ -70,7 +72,6 @@ class Login extends Component {
 
     return (
       <>
-        {/* <p>Login to access the full dashboard</p> */}
         <div className={css(styles.signIn)}>
           <form onSubmit={this.handleLoginSubmit} className={css(styles.signIn)}>
             <label className={css(styles.label)} htmlFor="email">Email:</label>
@@ -106,4 +107,19 @@ class Login extends Component {
   }
 }
 
-export default Login;
+Login.propTypes = {
+  user: PropTypes.object,
+  logIn: PropTypes.func.isRequired,
+};
+
+Login.defaultProps = {
+  user: {},
+};
+
+const mapStateToProps = (state) => {
+  return {
+    user: state.get('user').toJS(),
+  };
+};
+
+export default connect(mapStateToProps)(Login);

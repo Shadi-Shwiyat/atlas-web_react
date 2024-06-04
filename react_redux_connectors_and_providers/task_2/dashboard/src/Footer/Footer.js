@@ -1,7 +1,6 @@
 import React from 'react';
 import { getFullYear, getFooterCopy } from '../utils/utils.js';
 import './Footer.css';
-import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
 function Footer({ isUserLoggedIn, user }) {
@@ -26,6 +25,10 @@ Footer.defaultProps = {
   isUserLoggedIn: false,
   user: {},
 };
+
+export { Footer as UnconnectedFooter };
+
+import { connect } from 'react-redux';
 
 export function mapStateToProps(state) {
   return {

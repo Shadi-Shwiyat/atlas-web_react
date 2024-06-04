@@ -71,38 +71,37 @@ class Login extends Component {
     const { email, password, enableSubmit } = this.state;
 
     return (
-      <>
-        <div className={css(styles.signIn)}>
-          <form onSubmit={this.handleLoginSubmit} className={css(styles.signIn)}>
-            <label className={css(styles.label)} htmlFor="email">Email:</label>
-            <input
-              className={css(styles.signInInput)}
-              type="email"
-              id="email"
-              name="email"
-              value={email}
-              onChange={this.handleChangeEmail}
-            />
-            <br />
-            <label className={css(styles.label, styles.signInLabelLastOfType)} htmlFor="password">Password:</label>
-            <input
-              className={css(styles.signInInput)}
-              type="password"
-              id="password"
-              name="password"
-              value={password}
-              onChange={this.handleChangePassword}
-            />
-            <br />
-            <input
-              type="submit"
-              value="OK"
-              className={css(styles.signInButton)}
-              disabled={!enableSubmit}
-            />
-          </form>
-        </div>
-      </>
+      <div className={css(styles.signIn)}>
+        <form onSubmit={this.handleLoginSubmit} className={css(styles.signIn)} id="login-form">
+          <label className={css(styles.label)} htmlFor="email">Email:</label>
+          <input
+            className={css(styles.signInInput)}
+            type="email"
+            id="email"
+            name="email"
+            value={email}
+            onChange={this.handleChangeEmail}
+          />
+          <br />
+          <label className={css(styles.label, styles.signInLabelLastOfType)} htmlFor="password">Password:</label>
+          <input
+            className={css(styles.signInInput)}
+            type="password"
+            id="password"
+            name="password"
+            value={password}
+            onChange={this.handleChangePassword}
+          />
+          <br />
+          <input
+            type="submit"
+            value="OK"
+            className={css(styles.signInButton)}
+            disabled={!enableSubmit}
+            id="submit-button"
+          />
+        </form>
+      </div>
     );
   }
 }
@@ -122,4 +121,5 @@ const mapStateToProps = (state) => {
   };
 };
 
+export { Login as UnconnectedLogin };
 export default connect(mapStateToProps)(Login);

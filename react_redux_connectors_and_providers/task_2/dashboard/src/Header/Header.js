@@ -1,9 +1,9 @@
 import React from 'react';
 import logo from '../assets/logo.jpg';
 import { StyleSheet, css } from 'aphrodite';
-import { logout } from '../actions/uiActionCreators';
-import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { logout } from '../actions/uiActionCreators';
 
 const styles = StyleSheet.create({
   header: {
@@ -53,13 +53,15 @@ function Header({ user, isUserLoggedIn, logout }) {
     logout();
   };
 
+  const userEmail = user.get ? user.get('email') : user.email;
+
   return (
     <div className={css(styles.appHeader)}>
       <img src={logo} alt='logo.jpg' className={css(styles.logo)}></img>
       <h1 className={css(styles.h1)}>School dashboard</h1>
       {isUserLoggedIn && (
         <div className={css(styles.welcomeMessage)} id="logoutSection">
-          Welcome {user.get('email')} (<span className={css(styles.logoutLink)} onClick={handleLogout} id='logoutLink'>logout</span>)
+          Welcome {userEmail} (<span className={css(styles.logoutLink)} onClick={handleLogout} id='logoutLink'>logout</span>)
         </div>
       )}
     </div>
@@ -67,7 +69,10 @@ function Header({ user, isUserLoggedIn, logout }) {
 }
 
 Header.propTypes = {
-  user: PropTypes.object.isRequired,
+  user: PropTypes.oneOfType([
+    PropTypes.object,
+    PropTypes.instanceOf(Map)
+  ]).isRequired,
   isUserLoggedIn: PropTypes.bool.isRequired,
   logout: PropTypes.func.isRequired,
 };
@@ -78,6 +83,8 @@ Header.defaultProps = {
     email: '',
   },
 };
+
+export { Header as UnconnectedHeader };
 
 export function mapStateToProps(state) {
   return {

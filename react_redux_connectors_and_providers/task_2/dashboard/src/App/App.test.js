@@ -1,12 +1,10 @@
 import React from 'react';
-import { mount } from 'enzyme';
+import { shallow, mount } from 'enzyme';
 import { fromJS } from 'immutable';
 import configureStore from 'redux-mock-store';
-import { Provider } from 'react-redux';
 import { StyleSheetTestUtils } from 'aphrodite';
-import App, { mapStateToProps } from './App.js';
+import { UnconnectedApp as App, mapStateToProps } from './App.js';
 import { Map } from 'immutable';
-import { displayNotificationDrawer, hideNotificationDrawer } from '../actions/uiActionCreators';
 
 // Create a mock store
 const mockStore = configureStore([]);
@@ -29,124 +27,61 @@ describe('App Component', () => {
   });
 
   it('contains the Notifications component', () => {
-    const wrapper = mount(
-      <Provider store={store}>
-        <App />
-      </Provider>
-    );
+    const wrapper = shallow(<App isLoggedIn={false} displayDrawer={false} user={{}} />);
     expect(wrapper.find('Notifications').length).toEqual(1);
   });
 
   it('contains the Header component', () => {
-    const wrapper = mount(
-      <Provider store={store}>
-        <App />
-      </Provider>
-    );
-    expect(wrapper.find('Header').length).toEqual(1);
+    const wrapper = shallow(<App isLoggedIn={false} displayDrawer={false} user={{}} />);
+    expect(wrapper.find('#app-header').length).toEqual(1);
   });
 
   it('contains the Footer component', () => {
-    const wrapper = mount(
-      <Provider store={store}>
-        <App />
-      </Provider>
-    );
-    expect(wrapper.find('Footer').length).toEqual(1);
+    const wrapper = shallow(<App isLoggedIn={false} displayDrawer={false} user={{}} />);
+    expect(wrapper.find('#app-footer').length).toEqual(1);
   });
 
   it('does not contain the CourseList component by default', () => {
-    const wrapper = mount(
-      <Provider store={store}>
-        <App />
-      </Provider>
-    );
+    const wrapper = shallow(<App isLoggedIn={false} displayDrawer={false} user={{}} />);
     expect(wrapper.find('CourseList').length).toEqual(0);
   });
 
   describe('When isLoggedIn is true', () => {
     it('does not contain the Login component when user is logged in', () => {
-      const loggedInState = fromJS({
-        isUserLoggedIn: true,
-        isNotificationDrawerVisible: false,
-      });
-      const loggedInStore = mockStore(loggedInState);
-      const wrapper = mount(
-        <Provider store={loggedInStore}>
-          <App />
-        </Provider>
-      );
+      const wrapper = shallow(<App isLoggedIn={true} displayDrawer={false} user={{}} />);
       expect(wrapper.find('Login').length).toEqual(0);
     });
 
     it('contains the CourseList component', () => {
-      const loggedInState = fromJS({
-        isUserLoggedIn: true,
-        isNotificationDrawerVisible: false,
-      });
-      const loggedInStore = mockStore(loggedInState);
-      const wrapper = mount(
-        <Provider store={loggedInStore}>
-          <App />
-        </Provider>
-      );
+      const wrapper = shallow(<App isLoggedIn={true} displayDrawer={false} user={{}} />);
       expect(wrapper.find('CourseList').length).toEqual(1);
     });
   });
 
   // Test for displayDrawer state
   it('has default displayDrawer state as false', () => {
-    const wrapper = mount(
-      <Provider store={store}>
-        <App />
-      </Provider>
-    );
+    const wrapper = shallow(<App isLoggedIn={false} displayDrawer={false} user={{}} />);
     expect(wrapper.find('Notifications').prop('displayDrawer')).toBe(false);
   });
 
   it('sets displayDrawer to true when the action to display the drawer is dispatched', () => {
-    const updatedState = initialState.set('isNotificationDrawerVisible', true);
-    const updatedStore = mockStore(updatedState);
-    
-    const wrapper = mount(
-      <Provider store={updatedStore}>
-        <App />
-      </Provider>
-    );
-    
-    wrapper.setProps({ store: updatedStore });
+    const wrapper = shallow(<App isLoggedIn={false} displayDrawer={false} user={{}} />);
+    wrapper.setProps({ displayDrawer: true });
     wrapper.update();
-    
     expect(wrapper.find('Notifications').prop('displayDrawer')).toBe(true);
   });
 
   it('sets displayDrawer to false when the action to hide the drawer is dispatched', () => {
-    const visibleState = initialState.set('isNotificationDrawerVisible', true);
-    const visibleStore = mockStore(visibleState);
-
-    const wrapper = mount(
-      <Provider store={visibleStore}>
-        <App />
-      </Provider>
-    );
-
-    const updatedState = initialState.set('isNotificationDrawerVisible', false);
-    const updatedStore = mockStore(updatedState);
-    
-    wrapper.setProps({ store: updatedStore });
+    const wrapper = shallow(<App isLoggedIn={false} displayDrawer={true} user={{}} />);
+    wrapper.setProps({ displayDrawer: false });
     wrapper.update();
-    
     expect(wrapper.find('Notifications').prop('displayDrawer')).toBe(false);
   });
 
   // Test for markNotificationAsRead
   it('markNotificationAsRead updates state correctly', () => {
-    const wrapper = mount(
-      <Provider store={store}>
-        <App />
-      </Provider>
-    );
-    const appInstance = wrapper.find('App').instance();
+    const wrapper = shallow(<App isLoggedIn={false} displayDrawer={false} user={{}} />);
+    const appInstance = wrapper.instance();
     const initialNotifications = [
       { id: 1, type: "default", value: "New course available" },
       { id: 2, type: "urgent", value: "New resume available" },
@@ -177,10 +112,12 @@ describe('mapStateToProps', () => {
     const state = fromJS({
       isUserLoggedIn: true,
       isNotificationDrawerVisible: false,
+      user: Map(),
     });
     const expectedProps = {
       isLoggedIn: true,
       displayDrawer: false,
+      user: state.get('user').toJS(),
     };
     expect(mapStateToProps(state)).toEqual(expectedProps);
   });

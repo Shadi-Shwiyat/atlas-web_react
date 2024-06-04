@@ -90,7 +90,7 @@ class App extends Component {
             markNotificationAsRead={this.markNotificationAsRead}
           />
           <div className={css(styles.app)}>
-            <Header user={user} />
+            <Header id="app-header" user={user} />
             <div className={css(styles.appBody)}>
               {isLoggedIn ? (
                 <BodySectionWithMarginBottom title="Course list">
@@ -105,7 +105,7 @@ class App extends Component {
                 <p className={css(styles.appBodyP)}>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum finibus, justo ac maximus gravida, ex tellus vestibulum magna, ut dapibus eros dui a mauris. Ut sit amet nibh sit amet dui laoreet viverra. Donec quis felis sed lectus fringilla accumsan. Proin ac elit nec est fermentum vehicula. Nam ut viverra dolor, sit amet vestibulum dolor. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.</p>
               </BodySection>
             </div>
-            <Footer />
+            <Footer id="app-footer" />
           </div>
         </>
       </AppContext.Provider>
@@ -127,6 +127,8 @@ App.defaultProps = {
   logout: () => {},
   user: {},
 };
+
+export { App as UnconnectedApp };
 
 export function mapStateToProps(state) {
   return {

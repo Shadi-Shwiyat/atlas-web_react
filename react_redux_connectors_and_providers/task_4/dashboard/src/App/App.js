@@ -66,18 +66,22 @@ class App extends Component {
   }
 
   handleKeyDown = (event) => {
-    const { logout } = this.props;
+    const { logout, isUserLoggedIn } = this.props;
     const { ctrlKey, key } = event;
 
     if (ctrlKey && key === 'h') {
       alert('Logging you out');
       logout();
     }
+
+    if (ctrlKey && key === 'u') {
+      console.log('isUserLoggedIn:', isUserLoggedIn);
+    }
   }
 
   render() {
     const { listNotifications, listCourses } = this.state;
-    const { isLoggedIn, displayDrawer, displayNotificationDrawer, hideNotificationDrawer, loginRequest, logout, user } = this.props;
+    const { isUserLoggedIn, displayDrawer, displayNotificationDrawer, hideNotificationDrawer, loginRequest, logout, user } = this.props;
 
     return (
       <AppContext.Provider value={{ user: user, logOut: logout }}>
@@ -92,7 +96,7 @@ class App extends Component {
           <div className={css(styles.app)}>
             <Header id="app-header" user={user} />
             <div className={css(styles.appBody)}>
-              {isLoggedIn ? (
+              {isUserLoggedIn ? (
                 <BodySectionWithMarginBottom title="Course list">
                   <CourseList listCourses={listCourses} />
                 </BodySectionWithMarginBottom>
@@ -114,7 +118,7 @@ class App extends Component {
 }
 
 App.propTypes = {
-  isLoggedIn: PropTypes.bool,
+  isUserLoggedIn: PropTypes.bool,
   logout: PropTypes.func,
   displayDrawer: PropTypes.bool,
   displayNotificationDrawer: PropTypes.func,
@@ -131,10 +135,11 @@ App.defaultProps = {
 export { App as UnconnectedApp };
 
 export function mapStateToProps(state) {
+  console.log('App state:', state);
   return {
-    isLoggedIn: state.ui.isUserLoggedIn,
-    displayDrawer: state.ui.isNotificationDrawerVisible,
-    user: state.ui.user,
+    isUserLoggedIn: state.ui.get('isUserLoggedIn'),
+    displayDrawer: state.ui.get('isNotificationDrawerVisible'),
+    user: state.ui.get('user').toJS(),
   };
 }
 

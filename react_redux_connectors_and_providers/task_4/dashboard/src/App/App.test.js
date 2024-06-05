@@ -1,20 +1,17 @@
 import React from 'react';
-import { shallow } from 'enzyme';
+import { shallow, mount } from 'enzyme';
+import { fromJS, Map } from 'immutable';
 import configureStore from 'redux-mock-store';
 import { StyleSheetTestUtils } from 'aphrodite';
 import { UnconnectedApp as App, mapStateToProps } from './App.js';
 
 // Create a mock store
 const mockStore = configureStore([]);
-const initialState = {
-  courses: {},
-  notifications: { filter: 'DEFAULT' },
-  ui: {
-    isNotificationDrawerVisible: false,
-    isUserLoggedIn: false,
-    user: {},
-  },
-};
+const initialState = Map({
+  isNotificationDrawerVisible: false,
+  isUserLoggedIn: false,
+  user: Map(),
+});
 const store = mockStore(initialState);
 
 describe('App Component', () => {
@@ -50,12 +47,12 @@ describe('App Component', () => {
 
   describe('When isLoggedIn is true', () => {
     it('does not contain the Login component when user is logged in', () => {
-      const wrapper = shallow(<App isLoggedIn={true} displayDrawer={false} user={{}} />);
+      const wrapper = shallow(<App isUserLoggedIn={true} displayDrawer={false} user={{}} />);
       expect(wrapper.find('Login').length).toEqual(0);
     });
 
     it('contains the CourseList component', () => {
-      const wrapper = shallow(<App isLoggedIn={true} displayDrawer={false} user={{}} />);
+      const wrapper = shallow(<App isUserLoggedIn={true} displayDrawer={false} user={{}} />);
       expect(wrapper.find('CourseList').length).toEqual(1);
     });
   });
@@ -111,20 +108,20 @@ describe('App Component', () => {
 // Test suite for mapStateToProps
 describe('mapStateToProps', () => {
   it('should return the correct state', () => {
-    const state = {
-      courses: {},
-      notifications: {},
+    const state = fromJS({
       ui: {
         isUserLoggedIn: true,
         isNotificationDrawerVisible: false,
-        user: {},
-      },
-    };
+        user: Map(),
+      }
+    });
+
     const expectedProps = {
-      isLoggedIn: true,
+      isUserLoggedIn: true,
       displayDrawer: false,
-      user: state.ui.user,
+      user: state.getIn(['ui', 'user']).toJS(),
     };
+
     expect(mapStateToProps(state)).toEqual(expectedProps);
   });
 });

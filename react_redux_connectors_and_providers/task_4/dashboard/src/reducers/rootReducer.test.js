@@ -1,4 +1,3 @@
-// rootReducer.test.js
 import rootReducer from './rootReducer';
 import courseReducer from './courseReducer';
 import notificationReducer from './notificationReducer';

@@ -132,9 +132,9 @@ export { App as UnconnectedApp };
 
 export function mapStateToProps(state) {
   return {
-    isLoggedIn: state.get('isUserLoggedIn'),
-    displayDrawer: state.get('isNotificationDrawerVisible'),
-    user: state.get('user').toJS(),
+    isLoggedIn: state.ui.isUserLoggedIn,
+    displayDrawer: state.ui.isNotificationDrawerVisible,
+    user: state.ui.user,
   };
 }
 

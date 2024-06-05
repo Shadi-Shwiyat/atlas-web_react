@@ -32,8 +32,8 @@ import { connect } from 'react-redux';
 
 export function mapStateToProps(state) {
   return {
-    isUserLoggedIn: state.get('isUserLoggedIn'),
-    user: state.get('user').toJS(),
+    isUserLoggedIn: state.ui.isUserLoggedIn,
+    user: state.ui.user,
   };
 }
 

@@ -1,18 +1,20 @@
 import React from 'react';
-import { shallow, mount } from 'enzyme';
-import { fromJS } from 'immutable';
+import { shallow } from 'enzyme';
 import configureStore from 'redux-mock-store';
 import { StyleSheetTestUtils } from 'aphrodite';
 import { UnconnectedApp as App, mapStateToProps } from './App.js';
-import { Map } from 'immutable';
 
 // Create a mock store
 const mockStore = configureStore([]);
-const initialState = Map({
-  isNotificationDrawerVisible: false,
-  isUserLoggedIn: false,
-  user: Map(),
-});
+const initialState = {
+  courses: {},
+  notifications: { filter: 'DEFAULT' },
+  ui: {
+    isNotificationDrawerVisible: false,
+    isUserLoggedIn: false,
+    user: {},
+  },
+};
 const store = mockStore(initialState);
 
 describe('App Component', () => {
@@ -109,15 +111,19 @@ describe('App Component', () => {
 // Test suite for mapStateToProps
 describe('mapStateToProps', () => {
   it('should return the correct state', () => {
-    const state = fromJS({
-      isUserLoggedIn: true,
-      isNotificationDrawerVisible: false,
-      user: Map(),
-    });
+    const state = {
+      courses: {},
+      notifications: {},
+      ui: {
+        isUserLoggedIn: true,
+        isNotificationDrawerVisible: false,
+        user: {},
+      },
+    };
     const expectedProps = {
       isLoggedIn: true,
       displayDrawer: false,
-      user: state.get('user').toJS(),
+      user: state.ui.user,
     };
     expect(mapStateToProps(state)).toEqual(expectedProps);
   });

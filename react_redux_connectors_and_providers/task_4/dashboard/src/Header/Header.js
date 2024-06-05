@@ -88,8 +88,8 @@ export { Header as UnconnectedHeader };
 
 export function mapStateToProps(state) {
   return {
-    user: state.get('user'),
-    isUserLoggedIn: state.get('isUserLoggedIn'),
+    user: state.ui.user,
+    isUserLoggedIn: state.ui.isUserLoggedIn,
   };
 }
 

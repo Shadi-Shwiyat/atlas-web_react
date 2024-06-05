@@ -117,7 +117,7 @@ Login.defaultProps = {
 
 const mapStateToProps = (state) => {
   return {
-    user: state.get('user').toJS(),
+    user: state.ui.user,
   };
 };
 

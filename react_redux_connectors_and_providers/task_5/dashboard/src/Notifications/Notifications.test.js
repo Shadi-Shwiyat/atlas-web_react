@@ -5,12 +5,7 @@ import Notifications from './Notifications.js';
 import NotificationItem from './NotificationItem';
 import { getLatestNotification } from '../utils/utils.js';
 import { StyleSheetTestUtils } from 'aphrodite';
-
-markNotificationAsRead = (id) => {
-  this.setState((prevState) => ({
-    listNotifications: prevState.listNotifications.filter(notification => notification.id !== id)
-  }));
-}
+import { fetchNotifications } from '../actions/notificationActionCreators';
 
 beforeAll(() => {
   StyleSheetTestUtils.suppressStyleInjection();
@@ -107,6 +102,12 @@ test('calls markNotificationAsRead when NotificationItem is clicked', () => {
 
   // Check if the mock function is called
   expect(markNotificationAsRead).toHaveBeenCalledWith(1);
+});
+
+test('fetchNotifications is called when the component is mounted', () => {
+  const fetchNotificationsMock = jest.fn();
+  shallow(<Notifications fetchNotifications={fetchNotificationsMock} />);
+  expect(fetchNotificationsMock).toHaveBeenCalled();
 });
 
 describe('Notifications Component', () => {

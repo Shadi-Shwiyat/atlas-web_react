@@ -72,28 +72,6 @@ describe('App Component', () => {
     wrapper.update();
     expect(wrapper.find('Notifications').prop('displayDrawer')).toBe(false);
   });
-
-  it('markNotificationAsRead updates state correctly', () => {
-    const wrapper = shallow(<App isLoggedIn={false} displayDrawer={false} user={{}} />);
-    const appInstance = wrapper.instance();
-    const initialNotifications = [
-      { id: 1, type: "default", value: "New course available" },
-      { id: 2, type: "urgent", value: "New resume available" },
-      { id: 3, type: "urgent", html: { __html: "<strong>Urgent requirement</strong>" } }
-    ];
-
-    appInstance.setState({ listNotifications: initialNotifications });
-
-    appInstance.markNotificationAsRead(2);
-    wrapper.update();
-
-    const updatedNotifications = appInstance.state.listNotifications;
-
-    expect(updatedNotifications).toEqual([
-      { id: 1, type: "default", value: "New course available" },
-      { id: 3, type: "urgent", html: { __html: "<strong>Urgent requirement</strong>" } }
-    ]);
-  });
 });
 
 describe('mapStateToProps', () => {

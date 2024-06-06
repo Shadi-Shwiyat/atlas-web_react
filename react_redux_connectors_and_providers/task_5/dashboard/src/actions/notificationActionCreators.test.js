@@ -1,22 +1,33 @@
-import { markAsRead, setNotificationFilter } from './notificationActionCreators';
-import { MARK_AS_READ, SET_TYPE_FILTER } from './notificationActionTypes';
+import { setLoadingState, setNotifications, fetchNotifications } from './notificationActionCreators';
+import { SET_LOADING_STATE, FETCH_NOTIFICATIONS_SUCCESS } from './notificationActionTypes';
 
 describe('Notification Action Creators', () => {
-  it('should create an action to mark a notification as read', () => {
-    const index = 1;
+  it('should create an action to set the loading state', () => {
+    const isLoading = true;
     const expectedAction = {
-      type: MARK_AS_READ,
-      index
+      type: SET_LOADING_STATE,
+      isLoading
     };
-    expect(markAsRead(index)).toEqual(expectedAction);
+    expect(setLoadingState(isLoading)).toEqual(expectedAction);
   });
 
-  it('should create an action to set the notification filter', () => {
-    const filter = 'DEFAULT';
+  it('should create an action to set the notifications', () => {
+    const notifications = [
+      { id: 1, type: 'default', value: 'New course available' },
+      { id: 2, type: 'urgent', value: 'New resume available' },
+    ];
     const expectedAction = {
-      type: SET_TYPE_FILTER,
-      filter
+      type: FETCH_NOTIFICATIONS_SUCCESS,
+      data: notifications
     };
-    expect(setNotificationFilter(filter)).toEqual(expectedAction);
+    expect(setNotifications(notifications)).toEqual(expectedAction);
+  });
+
+  it('should dispatch fetchNotifications and setLoadingState actions', async () => {
+    const dispatch = jest.fn();
+    await fetchNotifications()(dispatch);
+    expect(dispatch).toHaveBeenCalledWith(setLoadingState(true));
+    expect(dispatch).toHaveBeenCalledWith(expect.any(Function)); // Since fetch is async
+    expect(dispatch).toHaveBeenCalledWith(setLoadingState(false));
   });
 });

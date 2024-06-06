@@ -51,12 +51,6 @@ class App extends Component {
     };
   }
 
-  markNotificationAsRead = (id) => {
-    this.setState((prevState) => ({
-      listNotifications: prevState.listNotifications.filter(notification => notification.id !== id)
-    }));
-  }
-
   componentDidMount() {
     document.addEventListener('keydown', this.handleKeyDown);
   }

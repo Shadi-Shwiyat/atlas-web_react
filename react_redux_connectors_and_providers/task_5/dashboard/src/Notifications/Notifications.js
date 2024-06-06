@@ -2,7 +2,6 @@ import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import NotificationItem from './NotificationItem.js';
 import { StyleSheet, css } from 'aphrodite';
-import NotificationItemShape from './NotificationItemShape';
 import { fetchNotifications } from '../actions/notificationActionCreators.js';
 import { connect } from 'react-redux';
 
@@ -145,7 +144,7 @@ class Notifications extends PureComponent {
 }
 
 Notifications.propTypes = {
-  listNotifications: PropTypes.arrayOf(NotificationItemShape),
+  listNotifications: PropTypes.array,
   displayDrawer: PropTypes.bool,
   handleDisplayDrawer: PropTypes.func,
   handleHideDrawer: PropTypes.func,

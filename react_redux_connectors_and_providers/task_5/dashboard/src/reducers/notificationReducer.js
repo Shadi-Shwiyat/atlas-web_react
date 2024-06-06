@@ -5,11 +5,10 @@ import {
   FETCH_NOTIFICATIONS_SUCCESS,
   SET_LOADING_STATE,
 } from '../actions/notificationActionTypes';
-import { notificationsNormalizer } from '../schema/notifications';
 
 // Define the initial state as an Immutable Map
 const initialState = Map({
-  notifications: Map(),
+  notifications: fromJS([]),
   filter: 'DEFAULT',
   loading: false,
 });
@@ -18,15 +17,8 @@ const initialState = Map({
 const notificationReducer = (state = initialState, action) => {
   switch (action.type) {
     case FETCH_NOTIFICATIONS_SUCCESS: {
-      const normalizedData = notificationsNormalizer(action.data);
-      // Convert normalized data to Immutable.js Map and merge with the state
-      const notifications = fromJS(normalizedData.entities.notifications).map(notification => 
-        notification.set('isRead', false)
-      );
-      return state.mergeDeep({
-        notifications,
-        loading: false,
-      });
+      // console.log('Setting notifications:', action.data);
+      return state.set('notifications', fromJS(action.data)).set('loading', false);
     }
 
     case MARK_AS_READ: {

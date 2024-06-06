@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
-import {StyleSheet, css} from 'aphrodite';
+import { StyleSheet, css } from 'aphrodite';
 
 const styles = StyleSheet.create({
   notificationItem: {
@@ -22,7 +22,7 @@ const styles = StyleSheet.create({
   urgent: {
     color: 'red',
   }
-})
+});
 
 class NotificationItem extends PureComponent {
   handleClick = () => {
@@ -30,28 +30,30 @@ class NotificationItem extends PureComponent {
     if (markNotificationAsRead) {
       console.log('handleClick called with id:', id);
       markNotificationAsRead(id);
-      // console.log("MARK NOTIFICATION AS READ IS CLICKED");
     }
   };
 
   render() {
-    const { id, type = 'default', html, value } = this.props;
+    const { id, context = {}, html = context.html, value } = this.props;
 
     return (
-      <li className={css(type == 'default' ? styles.default : styles.urgent, styles.notificationItem)} data-priority={type} dangerouslySetInnerHTML={html ? { __html: html.__html} : null} onClick={this.handleClick}>
-        {value}
+      <li className={css(context.type === 'default' ? styles.default : styles.urgent, styles.notificationItem)} data-priority={context.type} dangerouslySetInnerHTML={html ? { __html: html.__html } : null} onClick={this.handleClick}>
+        {value || context.value}
       </li>
     );
   }
 }
 
 NotificationItem.propTypes = {
-  id: PropTypes.number,
+  id: PropTypes.string,
   type: PropTypes.string,
   html: PropTypes.shape({
     __html: PropTypes.string
   }),
   value: PropTypes.string,
+  context: PropTypes.shape({
+    value: PropTypes.string
+  }),
   markNotificationAsRead: PropTypes.func
 };
 

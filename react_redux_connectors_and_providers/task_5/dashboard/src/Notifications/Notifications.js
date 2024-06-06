@@ -3,6 +3,8 @@ import PropTypes from 'prop-types';
 import NotificationItem from './NotificationItem.js';
 import { StyleSheet, css } from 'aphrodite';
 import NotificationItemShape from './NotificationItemShape';
+import { fetchNotifications } from '../actions/notificationActionCreators.js';
+import { connect } from 'react-redux';
 
 const opacityKeyframes = {
   '0%': { opacity: 0.5 },
@@ -89,6 +91,17 @@ class Notifications extends PureComponent {
     };
   }
 
+  componentDidMount() {
+    this.props.fetchNotifications();
+  }
+
+  
+  handleClick = () => {
+    const { listNotifications, handleDisplayDrawer } = this.props;
+    handleDisplayDrawer();
+    console.log(listNotifications);
+  };
+
   static getDerivedStateFromProps(nextProps, prevState) {
     if (nextProps.displayDrawer !== prevState.displayDrawer) {
       return { displayDrawer: nextProps.displayDrawer };
@@ -102,7 +115,7 @@ class Notifications extends PureComponent {
 
     return (
       <>
-        <div className={css(styles.menuItem)} id='menuItem' onClick={handleDisplayDrawer}>
+        <div className={css(styles.menuItem)} id='menuItem' onClick={this.handleClick}>
           <p>Your notifications</p>
         </div>
         {displayDrawer && (
@@ -137,6 +150,7 @@ Notifications.propTypes = {
   handleDisplayDrawer: PropTypes.func,
   handleHideDrawer: PropTypes.func,
   markNotificationAsRead: PropTypes.func,
+  fetchNotifications: PropTypes.func,
 };
 
 Notifications.defaultProps = {
@@ -146,4 +160,14 @@ Notifications.defaultProps = {
   markNotificationAsRead: () => {},
 };
 
-export default Notifications;
+export function mapStateToProps(state) {
+  return {
+    listNotifications: state.notifications.get('notifications').toList().toJS(),
+  };
+}
+
+const mapDispatchToProps = {
+  fetchNotifications,
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Notifications);

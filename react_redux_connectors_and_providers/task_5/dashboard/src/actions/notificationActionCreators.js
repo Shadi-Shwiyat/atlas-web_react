@@ -1,4 +1,4 @@
-import { MARK_AS_READ, SET_TYPE_FILTER, FETCH_NOTIFICATIONS_SUCCESS } from './notificationActionTypes';
+import { MARK_AS_READ, SET_TYPE_FILTER, FETCH_NOTIFICATIONS_SUCCESS, SET_LOADING_STATE } from './notificationActionTypes';
 import { bindActionCreators } from 'redux';
 
 export function markAsRead(index) {
@@ -24,14 +24,14 @@ export function fetchNotificationsSuccess(data) {
 
 export function setLoadingState (isLoading) {
   return {
-    type: 'SET_LOADING_STATE',
+    type: SET_LOADING_STATE,
     isLoading
   };
 }
 
 export function setNotifications (data) {
   return {
-    type: 'FETCH_NOTIFICATIONS_SUCCESS',
+    type: FETCH_NOTIFICATIONS_SUCCESS,
     data
   };
 }
@@ -45,6 +45,7 @@ export function fetchNotifications() {
       // Fetch notifications
       const response = await fetch('/notifications.json');
       const data = await response.json();
+      // console.log('Fetched notifications:', data);
 
       // Dispatch setNotifications with fetched data
       dispatch(setNotifications(data));

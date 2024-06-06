@@ -17,17 +17,12 @@ const notificationReducer = (state = initialState, action) => {
     case FETCH_NOTIFICATIONS_SUCCESS:
       return state.set('notifications', fromJS(action.data)).set('loading', false);
 
-    case MARK_AS_READ:
+    case MARK_AS_READ: {
       // console.log('Updating state for MARK_AS_READ with index:', action.index);
-      const updatedState = state.updateIn(['notifications'], notifications =>
-        notifications.map(notification =>
-          notification.get('id') === action.index
-            ? notification.set('isRead', true)
-            : notification
-        )
-      );
+      const index = state.get('notifications').findIndex(notification => notification.get('id') === action.index);
+      return state.setIn(['notifications', index, 'context', 'isRead'], true);
       // console.log('Updated state:', updatedState.toJS());
-      return updatedState;
+    }
 
     case SET_TYPE_FILTER:
       return state.set('filter', action.filter);

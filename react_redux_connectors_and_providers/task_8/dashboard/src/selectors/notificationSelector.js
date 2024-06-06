@@ -13,10 +13,11 @@ export const getNotifications = (state) => getNotificationsState(state).get('not
 export const getUnreadNotificationsByType = createSelector(
   [getNotifications, filterTypeSelected],
   (notifications, filter) => {
-    const unreadNotifications = notifications.filter(notification => !notification.get('isRead'));
+    const unreadNotifications = notifications.filter(notification => !notification.getIn(['context', 'isRead']));
 
     if (filter === 'URGENT') {
-      return unreadNotifications.filter(notification => notification.get('type') === 'urgent');
+      const urgentNotifications = unreadNotifications.filter(notification => notification.getIn(['context', 'type']) === 'urgent');
+      return urgentNotifications;
     }
 
     return unreadNotifications;

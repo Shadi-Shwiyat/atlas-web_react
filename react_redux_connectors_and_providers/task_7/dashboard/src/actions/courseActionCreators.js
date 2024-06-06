@@ -32,7 +32,7 @@ export function setCourses(data) {
 export function fetchCourses() {
   return async (dispatch) => {
     try {
-      const response = await fetch('/dist/courses.json');
+      const response = await fetch('/courses.json');
       const data = await response.json();
       dispatch(setCourses(data));
     } catch (error) {

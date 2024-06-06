@@ -44,7 +44,8 @@ const commonConfig = {
     new CopyWebpackPlugin({
       patterns: [
         { from: path.resolve(__dirname, '../dist/login-success.json'), to: '' },
-        { from: path.resolve(__dirname, '../dist/notifications.json'), to: '' }
+        { from: path.resolve(__dirname, '../dist/notifications.json'), to: '' },
+        { from: path.resolve(__dirname, '../dist/courses.json'), to: '' }
       ],
     }),
   ],
